@@ -18,15 +18,19 @@ Penalty Duel turns the excitement of a soccer shootout into a quick online compe
 
 ### Design
 
-![Design image](placeholder.png)
+![Penalty Duel application wireframe](penalty-duel-wireframe.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The wireframe shows the three main views of the application:
+
+- **Login view** - Players can create an account or sign in to save their progress.
+- **Game view** - Players can see the score, choose a shooting direction, and receive the result of each penalty kick.
+- **Results view** - Players can see the final score, play again, view the live leaderboard, and answer a sports trivia question.
 
 ```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
+flowchart LR
+    Login[Login or register] --> Game[Play penalty shootout]
+    Game --> Results[View results and leaderboard]
+    Results --> Game
 ```
 
 ### Key features
