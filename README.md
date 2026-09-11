@@ -14,7 +14,7 @@ This project is being developed for BYU CS 260.
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Penalty Duel turns the excitement of a soccer shootout into a quick online competition. Players choose where to shoot, challenge the goalkeeper or another player, and climb the live leaderboard as results update instantly. Whether you have a minute between classes or want to compete with friends, every kick creates a simple, fast, and replayable battle for bragging rights.
 
 ### Design
 
