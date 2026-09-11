@@ -48,9 +48,9 @@ flowchart LR
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
+- **HTML** - Provides the structure for the login, game, results, leaderboard, trivia, and navigation views.
+- **CSS** - Creates a responsive soccer-themed layout for desktop and mobile screens and provides animations for shots, goals, and saves.
+- **React** - Provides reusable components for login, gameplay, scoring, the leaderboard, and trivia. React Router will move users between views, and React state will update the score and game status after each shot.
 - **Service** - Description here
 - **DB/Login** - Description here
 - **WebSocket** - Description here
