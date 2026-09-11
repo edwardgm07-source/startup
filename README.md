@@ -62,12 +62,12 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Git commit requirement)
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology including your 3rd party API and use of WebSocket
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] **Prerequisites** - I created the startup repository and used separate Git commits to document each completed part of the specification.
+- [x] **Proper use of Markdown** - I organized the README with headings, bullet lists, links, an embedded image, and a Mermaid navigation diagram.
+- [x] **Elevator pitch** - I added a concise elevator pitch explaining the purpose, audience, and value of Penalty Duel.
+- [x] **Key features** - I documented authentication, penalty gameplay, scoring, player statistics, live updates, sports trivia, and responsive design.
+- [x] **Technology descriptions** - I explained how the application will use HTML, CSS, React, Node.js and Express, MongoDB, the Open Trivia DB API, and WebSocket.
+- [x] **Design sketches** - I added an embedded wireframe showing the login, gameplay, and results views, along with a navigation flow diagram.
 
 ## 🚀 AWS deliverable
 
