@@ -35,9 +35,14 @@ flowchart LR
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure account registration and login.
+- Five-round penalty shootouts with left, center, and right shooting options.
+- Immediate visual feedback showing whether each shot was scored or saved.
+- Single-player matches against the computer and online matches against another player.
+- Player statistics including total wins, losses, scores, and best winning streak.
+- A live leaderboard and activity feed that update when other players finish matches.
+- A sports trivia question provided by the Open Trivia DB API after each match.
+- A responsive interface that works on desktop and mobile screens.
 
 ### Technologies
 
