@@ -51,9 +51,9 @@ I am going to use the required technologies in the following ways.
 - **HTML** - Provides the structure for the login, game, results, leaderboard, trivia, and navigation views.
 - **CSS** - Creates a responsive soccer-themed layout for desktop and mobile screens and provides animations for shots, goals, and saves.
 - **React** - Provides reusable components for login, gameplay, scoring, the leaderboard, and trivia. React Router will move users between views, and React state will update the score and game status after each shot.
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **Service** - A Node.js and Express backend will provide endpoints to register, log in, log out, start matches, submit shots, save match results, and retrieve player statistics and leaderboard scores. After each match, the service will request a sports trivia question from the [Open Trivia DB API](https://opentdb.com/api_config.php).
+- **Database/Login** - MongoDB will securely store user accounts, hashed passwords, match results, total wins and losses, scores, and winning streaks.
+- **WebSocket** - The server will send real-time opponent actions, completed-match notifications, activity feed messages, and leaderboard updates to all connected players.
 
 ## 🚀 Specification Deliverable
 
