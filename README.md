@@ -71,11 +71,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ## 🚀 AWS deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
-- [ ] **Rented EC2 server** - I did not complete this part of the deliverable.
-- [ ] **Leased domain name** - I did not complete this part of the deliverable.
-- [ ] **Server accessible** from my domain: [https://yourdomainnamehere.click](https://yourdomainnamehere.click) - I did not complete this part of the deliverable.
+- [x] **Rented EC2 server** - I created a `t3.nano` EC2 instance using the Web Programming 260 Server v8 AMI and verified that it is accessible.
+- [x] **Leased domain name** - I registered `edwardgm260.click` through Amazon Route 53 and configured DNS records that point to my EC2 server.
+- [x] **Server accessible** from my domain: [https://startup.edwardgm260.click](https://startup.edwardgm260.click) - I configured Caddy and verified that the startup placeholder is available through HTTPS.
 
 ## 🚀 HTML deliverable
 
