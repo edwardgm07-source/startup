@@ -81,16 +81,16 @@ For this deliverable I did the following:
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **Prerequisites** - I deployed Simon, included my GitHub link, and made Git commits throughout the work.
+- [x] **HTML pages** - I created `index.html`, `play.html`, `scores.html`, and `about.html`.
+- [x] **Proper HTML element usage** - I used semantic elements including `header`, `nav`, `main`, `section`, `footer`, forms, tables, and lists.
+- [x] **Links** - I added navigation links between all pages and a link to my GitHub repository.
+- [x] **Text** - I included descriptions, instructions, match information, scores, and player statistics.
+- [x] **3rd party API placeholder** - The About page contains a placeholder for stadium weather information.
+- [x] **Images** - The Home and About pages display an image placeholder with descriptive alternative text.
+- [x] **Login placeholder** - The Home page contains email and password fields with Login and Create Account buttons.
+- [x] **DB data placeholder** - The Scores page contains a leaderboard and player statistics that will come from the database.
+- [x] **WebSocket placeholder** - The Play page contains a section for live match updates from another player.
 
 ## 🚀 CSS deliverable
 
