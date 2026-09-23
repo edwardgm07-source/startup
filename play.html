@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play | Penalty Duel</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>⚽ Penalty Duel</h1>
+
+      <nav>
+        <menu>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="play.html">Play</a></li>
+          <li><a href="scores.html">Scores</a></li>
+          <li><a href="about.html">About</a></li>
+        </menu>
+      </nav>
+
+      <hr />
+    </header>
+
+    <main>
+      <h2>Penalty Shootout</h2>
+
+      <section>
+        <h3>Match</h3>
+        <p>Player: Edward</p>
+        <p>Opponent: Waiting for another player...</p>
+        <p>Round: 1 of 5</p>
+      </section>
+
+      <section>
+        <h3>Score</h3>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Player</th>
+              <th>Goals</th>
+              <th>Shots</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Edward</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>Opponent</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h3>Take Your Shot</h3>
+
+        <label for="shot-direction">Choose a direction:</label>
+        <select id="shot-direction" name="shot-direction">
+          <option value="left">Left</option>
+          <option value="center">Center</option>
+          <option value="right">Right</option>
+        </select>
+
+        <button type="button">Kick!</button>
+      </section>
+
+      <section>
+        <h3>Live Match Updates</h3>
+        <p>Game events from other players will appear here.</p>
+
+        <!-- WebSocket data placeholder -->
+        <ul>
+          <li>Waiting for an opponent to connect...</li>
+          <li>Live shots and goals will be displayed here.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Game Result</h3>
+        <p>The winner will be displayed here when the match is complete.</p>
+        <button type="button">Play Again</button>
+      </section>
+    </main>
+
+    <footer>
+      <hr />
+      <span>Created by Edward Gómez</span>
+      <br />
+      <a href="https://github.com/edwardgm07-source/startup">GitHub</a>
+    </footer>
+  </body>
+</html>
