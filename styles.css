@@ -514,3 +514,115 @@ footer a {
 .highlight-stat .stat-label {
   color: var(--white-color);
 }
+.about-hero {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 2rem;
+  padding: 3rem;
+  color: var(--white-color);
+  background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 40px rgb(15 23 42 / 18%);
+}
+
+.about-image {
+  width: 100%;
+  max-width: 350px;
+  justify-self: center;
+  border: 6px solid rgb(255 255 255 / 15%);
+  border-radius: 1rem;
+}
+
+.about-copy .eyebrow {
+  color: var(--accent-color);
+}
+
+.about-copy h3 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+}
+
+.about-copy p:not(.eyebrow) {
+  color: #dbe7e3;
+  line-height: 1.8;
+}
+
+.about-copy .btn {
+  margin-top: 0.5rem;
+  font-weight: 800;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  padding: 2rem;
+  background-color: var(--white-color);
+  border-radius: 1rem;
+  box-shadow: 0 12px 30px rgb(15 23 42 / 10%);
+}
+
+.info-card h3 {
+  color: var(--primary-color);
+  font-weight: 800;
+}
+
+.info-icon {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+.steps-list,
+.weather-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+}
+
+.weather-card {
+  border-top: 5px solid var(--accent-color);
+}
+
+.technology-section {
+  margin-top: 3rem;
+}
+
+.technology-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.technology-card {
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--white-color);
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgb(15 23 42 / 10%);
+}
+
+.technology-card span {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+.technology-card h4 {
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.technology-card p {
+  margin: 0;
+  color: var(--muted-color);
+  font-size: 0.85rem;
+}

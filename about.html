@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-/>
-<link rel="stylesheet" href="styles.css" />
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+
     <title>About | Penalty Duel</title>
   </head>
 
@@ -27,59 +29,100 @@
       <hr />
     </header>
 
-    <main>
-      <h2>About Penalty Duel</h2>
-
-      <img
-        src="placeholder.png"
-        alt="Penalty Duel game placeholder"
-        width="300"
-      />
-
-      <section>
-        <h3>Game Description</h3>
+    <main class="about-page">
+      <section class="page-heading">
+        <p class="eyebrow">The beautiful game</p>
+        <h2>About Penalty Duel</h2>
         <p>
-          Penalty Duel is an online soccer game where two players compete in a
-          five-round penalty shootout. Each player chooses where to shoot while
-          the opponent chooses where the goalkeeper will dive.
+          Learn how the game works and which technologies will power it.
         </p>
       </section>
 
-      <section>
-        <h3>How to Play</h3>
-        <ol>
-          <li>Create an account or log in.</li>
-          <li>Wait for another player to join the match.</li>
-          <li>Choose the direction of your penalty kick.</li>
-          <li>Try to score more goals than your opponent.</li>
-          <li>Check the leaderboard to compare your results.</li>
-        </ol>
+      <section class="about-hero">
+        <img
+          class="about-image"
+          src="placeholder.png"
+          alt="Penalty Duel game placeholder"
+          width="400"
+        />
+
+        <div class="about-copy">
+          <p class="eyebrow">Game description</p>
+          <h3>Prove yourself from the penalty spot</h3>
+
+          <p>
+            Penalty Duel is an online soccer game where two players compete in
+            a five-round penalty shootout. Each player chooses where to shoot
+            while the opponent chooses where the goalkeeper will dive.
+          </p>
+
+          <a class="btn btn-warning" href="play.html">Play Penalty Duel</a>
+        </div>
       </section>
 
-      <section>
-        <h3>Stadium Conditions</h3>
+      <div class="about-grid">
+        <section class="info-card">
+          <span class="info-icon">📋</span>
+          <h3>How to Play</h3>
 
-        <!-- Third-party service data placeholder -->
-        <p>
-          Current weather information from a third-party weather service will
-          appear here.
-        </p>
+          <ol class="steps-list">
+            <li>Create an account or log in.</li>
+            <li>Wait for another player to join the match.</li>
+            <li>Choose the direction of your penalty kick.</li>
+            <li>Try to score more goals than your opponent.</li>
+            <li>Check the leaderboard to compare your results.</li>
+          </ol>
+        </section>
 
-        <ul>
-          <li>Location: Provo, Utah</li>
-          <li>Temperature: 72°F</li>
-          <li>Conditions: Clear</li>
-        </ul>
-      </section>
+        <section class="info-card weather-card">
+          <span class="info-icon">☀️</span>
+          <h3>Stadium Conditions</h3>
 
-      <section>
-        <h3>Future Technology</h3>
-        <ul>
-          <li>User authentication for player accounts</li>
-          <li>Database storage for scores and statistics</li>
-          <li>WebSocket communication for live matches</li>
-          <li>Third-party service for stadium weather</li>
-        </ul>
+          <!-- Third-party service data placeholder -->
+          <p>
+            Current weather information from a third-party service will appear
+            here.
+          </p>
+
+          <ul class="weather-list">
+            <li><strong>Location:</strong> Provo, Utah</li>
+            <li><strong>Temperature:</strong> 72°F</li>
+            <li><strong>Conditions:</strong> Clear</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="technology-section">
+        <div class="statistics-heading">
+          <p class="eyebrow">Coming soon</p>
+          <h3>Future Technology</h3>
+        </div>
+
+        <div class="technology-grid">
+          <article class="technology-card">
+            <span>🔐</span>
+            <h4>Authentication</h4>
+            <p>Secure player accounts and login.</p>
+          </article>
+
+          <article class="technology-card">
+            <span>🗄️</span>
+            <h4>Database</h4>
+            <p>Storage for scores and statistics.</p>
+          </article>
+
+          <article class="technology-card">
+            <span>🔄</span>
+            <h4>WebSocket</h4>
+            <p>Real-time communication for live matches.</p>
+          </article>
+
+          <article class="technology-card">
+            <span>🌤️</span>
+            <h4>Weather Service</h4>
+            <p>Live stadium weather information.</p>
+          </article>
+        </div>
       </section>
     </main>
 
