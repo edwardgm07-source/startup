@@ -365,3 +365,77 @@ footer a {
   flex-shrink: 0;
   font-weight: 700;
 }
+.leaderboard-card {
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.leaderboard-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.leaderboard-heading .eyebrow {
+  color: var(--secondary-color);
+}
+
+.leaderboard-heading h3 {
+  margin: 0;
+}
+
+.trophy-icon {
+  font-size: 3rem;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 1rem;
+  text-align: center;
+}
+
+.leaderboard-table th:nth-child(2),
+.leaderboard-table td:nth-child(2) {
+  text-align: left;
+}
+
+.rank-badge {
+  display: inline-grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  font-weight: 800;
+  border-radius: 50%;
+}
+
+.gold-rank {
+  color: #713f12;
+  background-color: #facc15;
+}
+
+.silver-rank {
+  color: #334155;
+  background-color: #cbd5e1;
+}
+
+.bronze-rank {
+  color: #ffffff;
+  background-color: #b45309;
+}
+
+.current-player td {
+  background-color: #ecfdf5;
+}
+
+.you-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  color: var(--white-color);
+  font-size: 0.7rem;
+  font-weight: 800;
+  background-color: var(--secondary-color);
+  border-radius: 999px;
+}
