@@ -80,34 +80,64 @@
         </section>
       </div>
 
-      <section>
-        <h3>Take Your Shot</h3>
+      <div class="game-actions-grid">
+        <section class="game-card shot-card">
+          <div class="card-icon">⚽</div>
+          <h3>Take Your Shot</h3>
 
-        <label for="shot-direction">Choose a direction:</label>
-        <select id="shot-direction" name="shot-direction">
-          <option value="left">Left</option>
-          <option value="center">Center</option>
-          <option value="right">Right</option>
-        </select>
+          <p class="section-description">
+            Select where you want to send the ball.
+          </p>
 
-        <button type="button">Kick!</button>
-      </section>
+          <div class="shot-controls">
+            <label for="shot-direction">Choose a direction:</label>
 
-      <section>
-        <h3>Live Match Updates</h3>
-        <p>Game events from other players will appear here.</p>
+            <select
+              class="form-select"
+              id="shot-direction"
+              name="shot-direction"
+            >
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
 
-        <!-- WebSocket data placeholder -->
-        <ul>
-          <li>Waiting for an opponent to connect...</li>
-          <li>Live shots and goals will be displayed here.</li>
-        </ul>
-      </section>
+            <button class="btn btn-warning" type="button">Kick!</button>
+          </div>
+        </section>
 
-      <section>
-        <h3>Game Result</h3>
-        <p>The winner will be displayed here when the match is complete.</p>
-        <button type="button">Play Again</button>
+        <section class="game-card live-card">
+          <span class="live-indicator">
+            <span class="live-dot"></span>
+            Live
+          </span>
+
+          <h3>Live Match Updates</h3>
+
+          <p class="section-description">
+            Game events from other players will appear here.
+          </p>
+
+          <!-- WebSocket data placeholder -->
+          <ul class="updates-list">
+            <li>Waiting for an opponent to connect...</li>
+            <li>Live shots and goals will be displayed here.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="game-card result-card">
+        <div>
+          <p class="eyebrow">Final whistle</p>
+          <h3>Game Result</h3>
+          <p>
+            The winner will be displayed here when the match is complete.
+          </p>
+        </div>
+
+        <button class="btn btn-outline-success" type="button">
+          Play Again
+        </button>
       </section>
     </main>
 
