@@ -439,3 +439,78 @@ footer a {
   background-color: var(--secondary-color);
   border-radius: 999px;
 }
+.statistics-section {
+  margin-top: 2.5rem;
+}
+
+.statistics-heading {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.statistics-heading .eyebrow {
+  color: var(--secondary-color);
+}
+
+.statistics-heading h3 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  text-align: center;
+  background-color: var(--white-color);
+  border-bottom: 5px solid var(--secondary-color);
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgb(15 23 42 / 10%);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px rgb(15 23 42 / 15%);
+}
+
+.stat-icon {
+  font-size: 2rem;
+}
+
+.stat-number {
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.stat-label {
+  color: var(--muted-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.highlight-stat {
+  color: var(--white-color);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border-bottom-color: var(--accent-color);
+}
+
+.highlight-stat .stat-number,
+.highlight-stat .stat-label {
+  color: var(--white-color);
+}
