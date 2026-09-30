@@ -106,3 +106,55 @@ footer a {
   color: var(--accent-color);
   font-weight: 700;
 }
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+  align-items: center;
+  gap: 3rem;
+  min-height: 420px;
+  padding: 3rem;
+  color: var(--white-color);
+  background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
+  border-radius: 1.5rem;
+  box-shadow: 0 18px 40px rgb(15 23 42 / 18%);
+  overflow: hidden;
+}
+
+.hero-copy {
+  max-width: 600px;
+}
+
+.eyebrow {
+  margin-bottom: 0.75rem;
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12rem;
+  text-transform: uppercase;
+}
+
+.home-hero h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+}
+
+.hero-description {
+  margin-bottom: 1.75rem;
+  color: #dbe7e3;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.home-hero .btn {
+  font-weight: 700;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  justify-self: center;
+  border: 6px solid rgb(255 255 255 / 15%);
+  border-radius: 1rem;
+  box-shadow: 0 16px 35px rgb(0 0 0 / 30%);
+}
