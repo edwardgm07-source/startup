@@ -29,6 +29,19 @@ This file represents what I have learned about web programming.
 - The `img` element displays images, and its `alt` attribute describes the image.
 - HTML provides the structure of an application before CSS and JavaScript are added.
 
+## CSS
+
+- CSS controls the visual appearance and layout of a webpage.
+- The cascade determines which style is applied when multiple rules affect the same element.
+- Element, class, ID, and pseudo-class selectors target different parts of a webpage.
+- CSS variables make it easier to reuse colors and other design values.
+- Flexbox is useful for arranging items in rows or columns.
+- CSS Grid is useful for creating layouts with multiple rows and columns.
+- Media queries allow a website to adjust to different screen sizes.
+- The box model includes content, padding, border, and margin.
+- Bootstrap provides reusable components and utility classes.
+- Responsive design helps prevent elements from overflowing on smaller screens.
+
 ## React
 
 Interesting things I have learned about React
