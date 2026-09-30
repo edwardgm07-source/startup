@@ -94,15 +94,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ## 🚀 CSS deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following. I checked the box `[x]` and added a description for the things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Prerequisites** - I deployed Simon, included my GitHub repository link, and made Git commits throughout the work.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - I created a soccer-themed design using green, yellow, navy, and white. I also used cards, spacing, shadows, and responsive tables to prevent elements from overflowing.
+- [x] **Use of a CSS framework** - I used Bootstrap for buttons, tables, form controls, responsive containers, and other components.
+- [x] **All visual elements styled using CSS** - I styled the header, navigation, footer, forms, buttons, tables, game panels, leaderboard, statistics, and About page.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - I used Flexbox, CSS Grid, and media queries so the pages adjust to desktop, tablet, and mobile screen sizes.
+- [x] **Use of an imported font** - I imported and used the Montserrat font from Google Fonts.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I used element, class, ID, and pseudo-class selectors such as `:hover` and `:focus-visible`.
 
 ## 🚀 React part 1: Routing deliverable
 
