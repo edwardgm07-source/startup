@@ -27,6 +27,13 @@ export function Home() {
             Start Playing
           </button>
         </div>
+
+        <img
+          className="hero-image"
+          src="/placeholder.png"
+          alt="Penalty Duel game placeholder"
+          width="450"
+        />
       </section>
 
       <section className="login-card">
