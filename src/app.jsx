@@ -2,11 +2,8 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
 import { Home } from './home/home.jsx';
 import { Play } from './play/play.jsx';
+import { Scores } from './scores/scores.jsx';
 
-
-function Scores() {
-  return <h2>Leaderboard</h2>;
-}
 
 function About() {
   return <h2>About Penalty Duel</h2>;
