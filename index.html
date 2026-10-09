@@ -1,78 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Compete in an exciting online penalty shootout."
+    />
+    <title>Penalty Duel</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <title>Penalty Duel</title>
-</head>
-
-<body>
-  <header>
-    <h1>⚽ Penalty Duel</h1>
-
-    <nav>
-      <menu>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="play.html">Play</a></li>
-        <li><a href="scores.html">Scores</a></li>
-        <li><a href="about.html">About</a></li>
-      </menu>
-    </nav>
-
-    <hr />
-  </header>
-
-  <main>
-    <section class="home-hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Five rounds. One winner.</p>
-
-        <h2>Welcome to Penalty Duel</h2>
-
-        <p class="hero-description">
-          Face another player in an exciting penalty shootout and prove who is
-          the best from the penalty spot.
-        </p>
-
-        <a class="btn btn-warning btn-lg" href="play.html">Start Playing</a>
-      </div>
-
-      <img class="hero-image" src="placeholder.png" alt="Penalty Duel placeholder" width="450" />
-    </section>
-
-    <section class="login-card">
-      <h3>Login or create an account</h3>
-
-      <form method="get" action="play.html">
-        <div class="form-field">
-          <label for="email">Email:</label>
-          <input id="email" name="email" type="email" placeholder="your@email.com" required />
-        </div>
-
-        <div class="form-field">
-          <label for="password">Password:</label>
-          <input id="password" name="password" type="password" placeholder="password" required />
-        </div>
-
-        <div class="form-actions">
-          <button class="btn btn-success" type="submit">Login</button>
-          <button class="btn btn-outline-success" type="submit">
-            Create Account
-          </button>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <hr />
-    <span>Created by Edward Gómez</span>
-    <br />
-    <a href="https://github.com/edwardgm07-source/startup">GitHub</a>
-  </footer>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
