@@ -1,8 +1,7 @@
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
-function Home() {
-  return <h2>Welcome to Penalty Duel</h2>;
-}
+import { Home } from './home/home.jsx';
+
 
 function Play() {
   return <h2>Penalty Shootout</h2>;
