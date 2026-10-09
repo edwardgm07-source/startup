@@ -108,10 +108,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - I did not complete this part of the deliverable.
+- [x] **Prerequisites** - I deployed Simon, included my GitHub repository link, and made more than ten meaningful Git commits throughout the React conversion.
+
+- [x] **Bundled using Vite** - I configured Vite to build and run the application, added development and production scripts, and verified that the production build completes successfully.
+
+- [x] **Components** - I converted the Home, Play, Scores, and About pages into reusable React components. The Home component contains the login form, the Play component contains the penalty game, the Scores component displays the leaderboard, and the About component explains the application.
+
+- [x] **Router** - I used React Router with `BrowserRouter`, `Routes`, `Route`, and `NavLink` to navigate between the Home, Play, Scores, and About views without reloading the page.
 
 ## 🚀 React part 2: Reactivity deliverable
 
