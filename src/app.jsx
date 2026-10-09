@@ -1,0 +1,63 @@
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+
+function Home() {
+  return <h2>Welcome to Penalty Duel</h2>;
+}
+
+function Play() {
+  return <h2>Penalty Shootout</h2>;
+}
+
+function Scores() {
+  return <h2>Leaderboard</h2>;
+}
+
+function About() {
+  return <h2>About Penalty Duel</h2>;
+}
+
+export function App() {
+  return (
+    <BrowserRouter>
+      <div className="app">
+        <header>
+          <h1>⚽ Penalty Duel</h1>
+
+          <nav>
+            <menu>
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/play">Play</NavLink>
+              </li>
+              <li>
+                <NavLink to="/scores">Scores</NavLink>
+              </li>
+              <li>
+                <NavLink to="/about">About</NavLink>
+              </li>
+            </menu>
+          </nav>
+        </header>
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/play" element={<Play />} />
+            <Route path="/scores" element={<Scores />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </main>
+
+        <footer>
+          <span>Created by Edward Gómez</span>
+          <a href="https://github.com/edwardgm07-source/startup">
+            GitHub
+          </a>
+        </footer>
+      </div>
+    </BrowserRouter>
+  );
+}
