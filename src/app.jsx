@@ -3,11 +3,8 @@ import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Home } from './home/home.jsx';
 import { Play } from './play/play.jsx';
 import { Scores } from './scores/scores.jsx';
+import { About } from './about/about.jsx';
 
-
-function About() {
-  return <h2>About Penalty Duel</h2>;
-}
 
 export function App() {
   return (
