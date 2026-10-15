@@ -104,7 +104,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Use of an imported font** - I imported and used the Montserrat font from Google Fonts.
 - [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I used element, class, ID, and pseudo-class selectors such as `:hover` and `:focus-visible`.
 
-## 🚀 React part 1: Routing deliverable
+## 🚀 React part1: Routing deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
