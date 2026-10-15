@@ -44,4 +44,12 @@ This file represents what I have learned about web programming.
 
 ## React
 
-Interesting things I have learned about React
+- React applications are built from reusable components.
+- JSX allows HTML-like markup to be written inside JavaScript.
+- React Router displays different components based on the current URL.
+- `BrowserRouter`, `Routes`, and `Route` define application navigation.
+- `NavLink` creates navigation links and identifies the active route.
+- The `useState` hook stores values that can change while the application runs.
+- Vite provides a development server and creates the production build.
+- Files placed in the `public` directory can be referenced from the root URL.
+- A React application uses one `index.html` file while the router displays different views.
