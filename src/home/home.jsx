@@ -1,31 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { loadUser, saveUser } from '../data/storage.js';
+import { saveUser } from '../data/storage.js';
 
-export function Home() {
+export function Home({ user, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [currentUser, setCurrentUser] = useState(() => loadUser());
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) {
+      setMessage('');
+    }
+  }, [user]);
+
   function authenticate(mode) {
     const normalizedEmail = email.trim().toLowerCase();
 
-    if (!normalizedEmail || password.length < 4) {
-      setMessage('Enter a valid email and a password with at least 4 characters.');
+    if (!normalizedEmail.includes('@') || password.length < 4) {
+      setMessage(
+        'Enter a valid email and a password with at least 4 characters.'
+      );
       return;
     }
 
-    const user = {
+    const player = {
       email: normalizedEmail,
       name: normalizedEmail.split('@')[0],
     };
 
-    saveUser(user);
-    setCurrentUser(user);
+    saveUser(player);
+    onLogin(player);
+
     setEmail('');
     setPassword('');
 
@@ -46,7 +54,7 @@ export function Home() {
   }
 
   function handleStartPlaying() {
-    if (currentUser) {
+    if (user) {
       navigate('/play');
     } else {
       setMessage('Please login or create an account before playing.');
@@ -79,9 +87,9 @@ export function Home() {
       </section>
 
       <section className="login-card">
-        {currentUser ? (
+        {user ? (
           <>
-            <h3>Welcome, {currentUser.name}!</h3>
+            <h3>Welcome, {user.name}!</h3>
             <p>Your player session is saved in this browser.</p>
 
             {message && <p role="status">{message}</p>}
