@@ -118,11 +118,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ## 🚀 React part 2: Reactivity deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following. I checked the box `[x]` and added a description for the items I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **Prerequisites** - I deployed Simon, included the GitHub repository link, and made numerous meaningful Git commits while developing the React application.
+
+- [x] **All functionality implemented or mocked out** - I implemented mocked account creation, login, logout, and browser session persistence using local storage. I created an interactive five-round penalty match with a simulated opponent, live match updates, match results, saved player statistics, recent match history, a simulated leaderboard, and simulated third-party stadium weather data.
+
+- [x] **Hooks** - I used React hooks throughout the application. `useState` manages authentication, gameplay, scores, messages, loading indicators, weather, and leaderboard data. `useEffect` simulates opponent events, database loading, and third-party weather requests. `useRef` prevents completed matches from being saved more than once.
 
 ## 🚀 Service deliverable
 
