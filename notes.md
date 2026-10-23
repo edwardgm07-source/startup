@@ -53,3 +53,13 @@ This file represents what I have learned about web programming.
 - Vite provides a development server and creates the production build.
 - Files placed in the `public` directory can be referenced from the root URL.
 - A React application uses one `index.html` file while the router displays different views.
+
+## React Part 2
+
+- `useState` stores values that change while the application is running.
+- `useEffect` runs code after a component renders and can simulate asynchronous services.
+- An effect should return a cleanup function when it creates a timer or subscription.
+- `useRef` can preserve a value between renders without causing another render.
+- `localStorage` can save user sessions, statistics, and match history in the browser.
+- Mock data can represent future database, WebSocket, and third-party service functionality.
+- React props allow components to share user information and event handlers.
