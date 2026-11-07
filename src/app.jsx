@@ -1,18 +1,43 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
 import { Home } from './home/home.jsx';
 import { Play } from './play/play.jsx';
 import { Scores } from './scores/scores.jsx';
 import { About } from './about/about.jsx';
-import { clearUser, loadUser } from './data/storage.js';
+import { getCurrentUser, logout } from './data/api.js';
 
 export function App() {
-  const [user, setUser] = useState(() => loadUser());
+  const [user, setUser] = useState(null);
 
-  function handleLogout() {
-    clearUser();
-    setUser(null);
+  useEffect(() => {
+    let active = true;
+
+    getCurrentUser()
+      .then((currentUser) => {
+        if (active) {
+          setUser(currentUser);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setUser(null);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  async function handleLogout() {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
+      setUser(null);
+    }
   }
 
   return (
@@ -42,7 +67,6 @@ export function App() {
             {user ? (
               <>
                 <span>Player: {user.name}</span>
-
                 <NavLink to="/" onClick={handleLogout}>
                   Logout
                 </NavLink>
@@ -71,7 +95,6 @@ export function App() {
 
         <footer>
           <span>Created by Edward Gómez</span>
-
           <a href="https://github.com/edwardgm07-source/startup">
             GitHub
           </a>
