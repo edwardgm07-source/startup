@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { saveUser } from '../data/storage.js';
+import { createAccount, login } from '../data/api.js';
 
 export function Home({ user, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [busy, setBusy] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,32 +17,39 @@ export function Home({ user, onLogin }) {
     }
   }, [user]);
 
-  function authenticate(mode) {
+  async function authenticate(mode) {
     const normalizedEmail = email.trim().toLowerCase();
 
     if (!normalizedEmail.includes('@') || password.length < 4) {
       setMessage(
-        'Enter a valid email and a password with at least 4 characters.'
+        'Enter a valid email and a password with at least 4 characters.',
       );
       return;
     }
 
-    const player = {
-      email: normalizedEmail,
-      name: normalizedEmail.split('@')[0],
-    };
+    setBusy(true);
+    setMessage('');
 
-    saveUser(player);
-    onLogin(player);
+    try {
+      const player =
+        mode === 'create'
+          ? await createAccount(normalizedEmail, password)
+          : await login(normalizedEmail, password);
 
-    setEmail('');
-    setPassword('');
+      onLogin(player);
+      setEmail('');
+      setPassword('');
 
-    setMessage(
-      mode === 'create'
-        ? 'Account created successfully!'
-        : 'Login successful!'
-    );
+      setMessage(
+        mode === 'create'
+          ? 'Account created successfully!'
+          : 'Login successful!',
+      );
+    } catch (error) {
+      setMessage(error.message);
+    } finally {
+      setBusy(false);
+    }
   }
 
   function handleSubmit(event) {
@@ -69,8 +77,8 @@ export function Home({ user, onLogin }) {
           <h2>Welcome to Penalty Duel</h2>
 
           <p className="hero-description">
-            Face another player in an exciting penalty shootout and prove who
-            is the best from the penalty spot.
+            Face another player in an exciting penalty shootout and prove who is
+            the best from the penalty spot.
           </p>
 
           <button type="button" onClick={handleStartPlaying}>
@@ -90,7 +98,7 @@ export function Home({ user, onLogin }) {
         {user ? (
           <>
             <h3>Welcome, {user.name}!</h3>
-            <p>Your player session is saved in this browser.</p>
+            <p>Your player session is secured by the service.</p>
 
             {message && <p role="status">{message}</p>}
 
@@ -112,6 +120,7 @@ export function Home({ user, onLogin }) {
                   placeholder="your@email.com"
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
+                  disabled={busy}
                   required
                 />
               </div>
@@ -125,6 +134,7 @@ export function Home({ user, onLogin }) {
                   placeholder="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
+                  disabled={busy}
                   required
                 />
               </div>
@@ -132,9 +142,15 @@ export function Home({ user, onLogin }) {
               {message && <p role="status">{message}</p>}
 
               <div className="form-actions">
-                <button type="submit">Login</button>
+                <button type="submit" disabled={busy}>
+                  {busy ? 'Please wait...' : 'Login'}
+                </button>
 
-                <button type="button" onClick={handleCreateAccount}>
+                <button
+                  type="button"
+                  onClick={handleCreateAccount}
+                  disabled={busy}
+                >
                   Create Account
                 </button>
               </div>
