@@ -39,8 +39,10 @@ cp service/package-lock.json build/
 printf "\n----> Clearing the previous deployment\n"
 
 ssh -i "$key" ubuntu@$hostname << ENDSSH
-rm -rf services/${service}
-mkdir -p services/${service}
+set -e
+
+rm -rf "services/${service}"
+mkdir -p "services/${service}"
 ENDSSH
 
 # Copy the frontend and backend to AWS.
@@ -52,13 +54,18 @@ scp -r -i "$key" build/* ubuntu@$hostname:services/$service
 printf "\n----> Starting the production service\n"
 
 ssh -i "$key" ubuntu@$hostname << ENDSSH
-cd services/${service}
+set -e
+
+export NVM_DIR="\$HOME/.nvm"
+source "\$NVM_DIR/nvm.sh"
+
+cd "services/${service}"
 npm install --omit=dev
 
-if pm2 describe ${service} > /dev/null 2>&1; then
-    NODE_ENV=production pm2 restart ${service} --update-env
+if pm2 describe "${service}" > /dev/null 2>&1; then
+    NODE_ENV=production pm2 restart "${service}" --update-env
 else
-    NODE_ENV=production pm2 start index.js --name ${service}
+    NODE_ENV=production pm2 start index.js --name "${service}"
 fi
 
 pm2 save
