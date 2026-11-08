@@ -1,40 +1,84 @@
 import { useEffect, useState } from 'react';
 
-const mockWeatherConditions = [
-  {
-    temperature: 72,
-    conditions: 'Clear',
-    wind: '6 mph',
-  },
-  {
-    temperature: 68,
-    conditions: 'Partly cloudy',
-    wind: '9 mph',
-  },
-  {
-    temperature: 64,
-    conditions: 'Light rain',
-    wind: '12 mph',
-  },
-];
+const weatherUrl =
+  'https://api.open-meteo.com/v1/forecast' +
+  '?latitude=40.2338' +
+  '&longitude=-111.6585' +
+  '&current=temperature_2m,weather_code,wind_speed_10m' +
+  '&temperature_unit=fahrenheit' +
+  '&wind_speed_unit=mph' +
+  '&timezone=America%2FDenver';
+
+function getWeatherDescription(code) {
+  const descriptions = {
+    0: 'Clear sky',
+    1: 'Mainly clear',
+    2: 'Partly cloudy',
+    3: 'Overcast',
+    45: 'Foggy',
+    48: 'Rime fog',
+    51: 'Light drizzle',
+    53: 'Moderate drizzle',
+    55: 'Heavy drizzle',
+    61: 'Light rain',
+    63: 'Moderate rain',
+    65: 'Heavy rain',
+    71: 'Light snow',
+    73: 'Moderate snow',
+    75: 'Heavy snow',
+    80: 'Light rain showers',
+    81: 'Moderate rain showers',
+    82: 'Heavy rain showers',
+    95: 'Thunderstorm',
+  };
+
+  return descriptions[code] ?? 'Unknown conditions';
+}
 
 export function About() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [weatherRequest, setWeatherRequest] = useState(0);
 
   useEffect(() => {
-    setLoading(true);
+    const controller = new AbortController();
 
-    const weatherTimer = setTimeout(() => {
-      const conditionIndex =
-        weatherRequest % mockWeatherConditions.length;
+    async function loadWeather() {
+      setLoading(true);
+      setError('');
 
-      setWeather(mockWeatherConditions[conditionIndex]);
-      setLoading(false);
-    }, 700);
+      try {
+        const response = await fetch(weatherUrl, {
+          signal: controller.signal,
+        });
 
-    return () => clearTimeout(weatherTimer);
+        if (!response.ok) {
+          throw new Error(`Weather request failed (${response.status})`);
+        }
+
+        const data = await response.json();
+
+        setWeather({
+          temperature: Math.round(data.current.temperature_2m),
+          conditions: getWeatherDescription(data.current.weather_code),
+          wind: Math.round(data.current.wind_speed_10m),
+          updatedAt: data.current.time,
+        });
+      } catch (loadError) {
+        if (loadError.name !== 'AbortError') {
+          setError(loadError.message);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    loadWeather();
+
+    return () => controller.abort();
   }, [weatherRequest]);
 
   function refreshWeather() {
@@ -52,9 +96,9 @@ export function About() {
         <h3>Game Description</h3>
 
         <p>
-          Penalty Duel is an online soccer game where two players compete in a
-          five-round penalty shootout. Each player chooses where to shoot while
-          the opponent chooses where the goalkeeper will dive.
+          Penalty Duel is an online soccer game where players compete in a
+          five-round penalty shootout. Choose where to shoot and try to score
+          more goals than your opponent.
         </p>
       </section>
 
@@ -63,7 +107,7 @@ export function About() {
 
         <ol>
           <li>Create an account or log in.</li>
-          <li>Wait for another player to join the match.</li>
+          <li>Open the Play page.</li>
           <li>Choose the direction of your penalty kick.</li>
           <li>Try to score more goals than your opponent.</li>
           <li>Check the leaderboard to compare your results.</li>
@@ -74,12 +118,24 @@ export function About() {
         <h3>Stadium Conditions</h3>
 
         <p>
-          This data simulates information that will eventually come from a
-          third-party weather service.
+          Current outdoor conditions in Provo are provided by the Open-Meteo
+          weather service.
         </p>
 
         {loading ? (
           <p role="status">Loading stadium conditions...</p>
+        ) : error ? (
+          <>
+            <p role="alert">Could not load weather: {error}</p>
+
+            <button
+              className="btn btn-warning"
+              type="button"
+              onClick={refreshWeather}
+            >
+              Try Again
+            </button>
+          </>
         ) : (
           <>
             <ul className="weather-list">
@@ -96,7 +152,12 @@ export function About() {
               </li>
 
               <li>
-                <strong>Wind:</strong> {weather.wind}
+                <strong>Wind:</strong> {weather.wind} mph
+              </li>
+
+              <li>
+                <strong>Last updated:</strong>{' '}
+                {new Date(weather.updatedAt).toLocaleString()}
               </li>
             </ul>
 
@@ -107,18 +168,29 @@ export function About() {
             >
               Refresh Conditions
             </button>
+
+            <p>
+              Weather data by{' '}
+              <a
+                href="https://open-meteo.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open-Meteo
+              </a>
+            </p>
           </>
         )}
       </section>
 
       <section className="game-card">
-        <h3>Future Technology</h3>
+        <h3>Technology</h3>
 
         <ul>
-          <li>User authentication for player accounts</li>
-          <li>Database storage for scores and statistics</li>
-          <li>WebSocket communication for live matches</li>
-          <li>Third-party service for stadium weather</li>
+          <li>Secure authentication for player accounts</li>
+          <li>Service endpoints for scores and match history</li>
+          <li>Third-party weather data from Open-Meteo</li>
+          <li>Future database storage and WebSocket communication</li>
         </ul>
       </section>
     </>
