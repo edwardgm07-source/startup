@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import {
-  loadStats,
-  saveMatch,
-  saveStats,
-} from '../data/storage.js';
+import { saveMatch } from '../data/api.js';
 
 export function Play({ user }) {
   const [direction, setDirection] = useState('left');
@@ -13,7 +9,9 @@ export function Play({ user }) {
   const [opponentShots, setOpponentShots] = useState(0);
   const [opponentGoals, setOpponentGoals] = useState(0);
   const [message, setMessage] = useState(
-    'Your opponent is ready. Take the first shot!'
+    user
+      ? 'Your opponent is ready. Take the first shot!'
+      : 'Please log in from Home before playing.',
   );
 
   const savedMatch = useRef(false);
@@ -24,11 +22,19 @@ export function Play({ user }) {
   const waitingForOpponent = opponentShots < shots;
 
   useEffect(() => {
-    if (!waitingForOpponent || opponentShots >= 5) {
+    if (!user && shots === 0 && opponentShots === 0) {
+      setMessage('Please log in from Home before playing.');
+    } else if (user && shots === 0 && opponentShots === 0) {
+      setMessage('Your opponent is ready. Take the first shot!');
+    }
+  }, [user, shots, opponentShots]);
+
+  useEffect(() => {
+    if (!user || !waitingForOpponent || opponentShots >= 5) {
       return undefined;
     }
 
-    const opponentTimer = setInterval(() => {
+    const opponentTimer = setTimeout(() => {
       const opponentScored = Math.random() >= 0.5;
 
       setOpponentShots((currentShots) => currentShots + 1);
@@ -41,57 +47,53 @@ export function Play({ user }) {
       }
     }, 1500);
 
-    return () => clearInterval(opponentTimer);
-  }, [waitingForOpponent, opponentShots]);
+    return () => clearTimeout(opponentTimer);
+  }, [user, waitingForOpponent, opponentShots]);
 
   useEffect(() => {
-    if (!matchComplete || savedMatch.current) {
-      return;
+    if (!user || !matchComplete || savedMatch.current) {
+      return undefined;
     }
 
     savedMatch.current = true;
+    let active = true;
 
     const won = goals > opponentGoals;
     const draw = goals === opponentGoals;
-    const result = won ? 'Win' : draw ? 'Draw' : 'Loss';
 
-    const currentStats = loadStats();
-
-    const updatedStats = {
-      matches: currentStats.matches + 1,
-      wins: currentStats.wins + (won ? 1 : 0),
-      goals: currentStats.goals + goals,
-      streak: won ? currentStats.streak + 1 : 0,
-    };
-
-    saveStats(updatedStats);
-
-    saveMatch({
-      id: Date.now(),
-      date: new Date().toLocaleDateString(),
-      player: playerName,
-      opponent: opponentName,
-      playerGoals: goals,
-      opponentGoals,
-      result,
-    });
+    let resultMessage;
 
     if (won) {
-      setMessage(`You won ${goals}-${opponentGoals}!`);
+      resultMessage = `You won ${goals}-${opponentGoals}!`;
     } else if (draw) {
-      setMessage(`The match ended in a ${goals}-${opponentGoals} draw.`);
+      resultMessage = `The match ended in a ${goals}-${opponentGoals} draw.`;
     } else {
-      setMessage(`You lost ${goals}-${opponentGoals}. Try again!`);
+      resultMessage = `You lost ${goals}-${opponentGoals}. Try again!`;
     }
-  }, [
-    matchComplete,
-    goals,
-    opponentGoals,
-    playerName,
-  ]);
+
+    async function storeMatch() {
+      try {
+        await saveMatch(goals, opponentGoals);
+
+        if (active) {
+          setMessage(`${resultMessage} Result saved to the service.`);
+        }
+      } catch (error) {
+        if (active) {
+          setMessage(`${resultMessage} Could not save: ${error.message}`);
+        }
+      }
+    }
+
+    storeMatch();
+
+    return () => {
+      active = false;
+    };
+  }, [user, matchComplete, goals, opponentGoals]);
 
   function takeShot() {
-    if (shots >= 5 || waitingForOpponent) {
+    if (!user || shots >= 5 || waitingForOpponent) {
       return;
     }
 
@@ -103,9 +105,7 @@ export function Play({ user }) {
       setGoals((currentGoals) => currentGoals + 1);
       setMessage(`Goal! ${playerName} scored to the ${direction}.`);
     } else {
-      setMessage(
-        `Saved! The goalkeeper blocked the ${direction} shot.`
-      );
+      setMessage(`Saved! The goalkeeper blocked the ${direction} shot.`);
     }
   }
 
@@ -120,6 +120,10 @@ export function Play({ user }) {
   }
 
   function getResultMessage() {
+    if (!user) {
+      return 'Log in from Home to play and save your results.';
+    }
+
     if (!matchComplete) {
       return 'The result will appear after both players take five shots.';
     }
@@ -148,7 +152,11 @@ export function Play({ user }) {
       <div className="play-grid">
         <section className="game-card">
           <span className="status-badge">
-            {matchComplete ? 'Match complete' : 'Opponent connected'}
+            {!user
+              ? 'Login required'
+              : matchComplete
+                ? 'Match complete'
+                : 'Opponent connected'}
           </span>
 
           <h3>Match</h3>
@@ -198,15 +206,13 @@ export function Play({ user }) {
       <section className="game-card">
         <h3>Take Your Shot</h3>
 
-        <label htmlFor="shot-direction">
-          Choose a direction:
-        </label>
+        <label htmlFor="shot-direction">Choose a direction:</label>
 
         <select
           id="shot-direction"
           value={direction}
           onChange={(event) => setDirection(event.target.value)}
-          disabled={shots >= 5 || waitingForOpponent}
+          disabled={!user || shots >= 5 || waitingForOpponent}
         >
           <option value="left">Left</option>
           <option value="center">Center</option>
@@ -216,7 +222,7 @@ export function Play({ user }) {
         <button
           type="button"
           onClick={takeShot}
-          disabled={shots >= 5 || waitingForOpponent}
+          disabled={!user || shots >= 5 || waitingForOpponent}
         >
           {waitingForOpponent ? 'Opponent shooting...' : 'Kick!'}
         </button>

@@ -43,3 +43,21 @@ export function logout() {
     method: 'DELETE',
   });
 }
+
+export function saveMatch(playerScore, opponentScore) {
+  return request('/api/matches', {
+    method: 'POST',
+    body: JSON.stringify({
+      playerScore,
+      opponentScore,
+    }),
+  });
+}
+
+export function getMatches() {
+  return request('/api/matches');
+}
+
+export function getScores() {
+  return request('/api/scores');
+}
