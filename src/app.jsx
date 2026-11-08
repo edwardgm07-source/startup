@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
+import { About } from './about/about.jsx';
+import { getCurrentUser, logout } from './data/api.js';
 import { Home } from './home/home.jsx';
 import { Play } from './play/play.jsx';
 import { Scores } from './scores/scores.jsx';
-import { About } from './about/about.jsx';
-import { getCurrentUser, logout } from './data/api.js';
 
 export function App() {
   const [user, setUser] = useState(null);
@@ -51,12 +51,15 @@ export function App() {
               <li>
                 <NavLink to="/">Home</NavLink>
               </li>
+
               <li>
                 <NavLink to="/play">Play</NavLink>
               </li>
+
               <li>
                 <NavLink to="/scores">Scores</NavLink>
               </li>
+
               <li>
                 <NavLink to="/about">About</NavLink>
               </li>
@@ -67,6 +70,7 @@ export function App() {
             {user ? (
               <>
                 <span>Player: {user.name}</span>
+
                 <NavLink to="/" onClick={handleLogout}>
                   Logout
                 </NavLink>
@@ -83,9 +87,13 @@ export function App() {
               path="/"
               element={<Home user={user} onLogin={setUser} />}
             />
+
             <Route path="/play" element={<Play user={user} />} />
-            <Route path="/scores" element={<Scores />} />
+
+            <Route path="/scores" element={<Scores user={user} />} />
+
             <Route path="/about" element={<About />} />
+
             <Route
               path="*"
               element={<Home user={user} onLogin={setUser} />}
@@ -95,6 +103,7 @@ export function App() {
 
         <footer>
           <span>Created by Edward Gómez</span>
+
           <a href="https://github.com/edwardgm07-source/startup">
             GitHub
           </a>

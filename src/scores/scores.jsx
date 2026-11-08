@@ -1,70 +1,59 @@
 import { useEffect, useState } from 'react';
 
-import {
-  loadMatches,
-  loadStats,
-  loadUser,
-} from '../data/storage.js';
+import { getMatches, getScores } from '../data/api.js';
 
-const mockPlayers = [
-  {
-    name: 'GoalMaster',
-    matches: 15,
-    wins: 12,
-    goals: 48,
-  },
-  {
-    name: 'StrikeQueen',
-    matches: 13,
-    wins: 10,
-    goals: 42,
-  },
-  {
-    name: 'SuperKeeper',
-    matches: 10,
-    wins: 7,
-    goals: 31,
-  },
-];
+const emptyStats = {
+  games: 0,
+  wins: 0,
+  losses: 0,
+  draws: 0,
+};
 
-export function Scores() {
+export function Scores({ user }) {
   const [players, setPlayers] = useState([]);
-  const [stats, setStats] = useState(() => loadStats());
-  const [matches, setMatches] = useState(() => loadMatches());
+  const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    const databaseTimer = setTimeout(() => {
-      const savedUser = loadUser();
-      const savedStats = loadStats();
-      const savedMatches = loadMatches();
+    let active = true;
 
-      const currentPlayer = {
-        name: savedUser?.name ?? 'Guest',
-        matches: savedStats.matches,
-        wins: savedStats.wins,
-        goals: savedStats.goals,
-      };
+    async function loadScoreData() {
+      try {
+        const [scoreData, matchData] = await Promise.all([
+          getScores(),
+          getMatches(),
+        ]);
 
-      const leaderboard = [...mockPlayers, currentPlayer].sort(
-        (firstPlayer, secondPlayer) =>
-          secondPlayer.wins - firstPlayer.wins ||
-          secondPlayer.goals - firstPlayer.goals
-      );
+        if (active) {
+          setPlayers(scoreData);
+          setMatches(matchData);
+        }
+      } catch (loadError) {
+        if (active) {
+          setError(loadError.message);
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    }
 
-      setPlayers(leaderboard);
-      setStats(savedStats);
-      setMatches(savedMatches);
-      setLoading(false);
-    }, 600);
+    loadScoreData();
 
-    return () => clearTimeout(databaseTimer);
+    return () => {
+      active = false;
+    };
   }, []);
 
+  const currentStats =
+    players.find((player) => player.name === user?.name) ?? emptyStats;
+
   const winRate =
-    stats.matches === 0
+    currentStats.games === 0
       ? 0
-      : Math.round((stats.wins / stats.matches) * 100);
+      : Math.round((currentStats.wins / currentStats.games) * 100);
 
   return (
     <>
@@ -72,8 +61,8 @@ export function Scores() {
         <p className="eyebrow">Top competitors</p>
         <h2>Leaderboard</h2>
         <p>
-          Leaderboard data is currently simulated while your statistics
-          and match history are saved in this browser.
+          Player statistics and recent matches are loaded from the Penalty Duel
+          service.
         </p>
       </section>
 
@@ -82,6 +71,10 @@ export function Scores() {
 
         {loading ? (
           <p role="status">Loading leaderboard...</p>
+        ) : error ? (
+          <p role="alert">Could not load scores: {error}</p>
+        ) : players.length === 0 ? (
+          <p>No completed matches yet. Play a match to join the leaderboard.</p>
         ) : (
           <div className="table-responsive">
             <table>
@@ -89,20 +82,22 @@ export function Scores() {
                 <tr>
                   <th>Rank</th>
                   <th>Player</th>
-                  <th>Matches</th>
+                  <th>Games</th>
                   <th>Wins</th>
-                  <th>Goals</th>
+                  <th>Losses</th>
+                  <th>Draws</th>
                 </tr>
               </thead>
 
               <tbody>
                 {players.map((player, index) => (
-                  <tr key={`${player.name}-${index}`}>
+                  <tr key={player.name}>
                     <td>{index + 1}</td>
                     <td>{player.name}</td>
-                    <td>{player.matches}</td>
+                    <td>{player.games}</td>
                     <td>{player.wins}</td>
-                    <td>{player.goals}</td>
+                    <td>{player.losses}</td>
+                    <td>{player.draws}</td>
                   </tr>
                 ))}
               </tbody>
@@ -114,31 +109,45 @@ export function Scores() {
       <section className="game-card">
         <h3>Your Statistics</h3>
 
-        <p>
-          <strong>Matches played:</strong> {stats.matches}
-        </p>
+        {user ? (
+          <>
+            <p>
+              <strong>Player:</strong> {user.name}
+            </p>
 
-        <p>
-          <strong>Matches won:</strong> {stats.wins}
-        </p>
+            <p>
+              <strong>Matches played:</strong> {currentStats.games}
+            </p>
 
-        <p>
-          <strong>Total goals:</strong> {stats.goals}
-        </p>
+            <p>
+              <strong>Matches won:</strong> {currentStats.wins}
+            </p>
 
-        <p>
-          <strong>Current winning streak:</strong> {stats.streak}
-        </p>
+            <p>
+              <strong>Matches lost:</strong> {currentStats.losses}
+            </p>
 
-        <p>
-          <strong>Win rate:</strong> {winRate}%
-        </p>
+            <p>
+              <strong>Draws:</strong> {currentStats.draws}
+            </p>
+
+            <p>
+              <strong>Win rate:</strong> {winRate}%
+            </p>
+          </>
+        ) : (
+          <p>Log in to view your personal statistics.</p>
+        )}
       </section>
 
       <section className="game-card">
         <h3>Recent Matches</h3>
 
-        {matches.length === 0 ? (
+        {loading ? (
+          <p role="status">Loading recent matches...</p>
+        ) : error ? (
+          <p role="alert">Could not load matches: {error}</p>
+        ) : matches.length === 0 ? (
           <p>No completed matches yet. Play a match to create history.</p>
         ) : (
           <div className="table-responsive">
@@ -156,13 +165,16 @@ export function Scores() {
               <tbody>
                 {matches.map((match) => (
                   <tr key={match.id}>
-                    <td>{match.date}</td>
+                    <td>{new Date(match.playedAt).toLocaleString()}</td>
                     <td>{match.player}</td>
-                    <td>{match.opponent}</td>
+                    <td>Alex</td>
                     <td>
-                      {match.playerGoals}-{match.opponentGoals}
+                      {match.playerScore}-{match.opponentScore}
                     </td>
-                    <td>{match.result}</td>
+                    <td>
+                      {match.result.charAt(0).toUpperCase() +
+                        match.result.slice(1)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
