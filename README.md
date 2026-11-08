@@ -130,14 +130,14 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
-- [ ] **Uses BCrypt to hash passwords** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits) — Penalty Duel is deployed at [startup.edwardgm260.click](https://startup.edwardgm260.click).
+- [x] **Node.js/Express HTTP service** — Created an Express service that runs on port 4000 and is managed in production with PM2.
+- [x] **Static middleware for frontend** — Express serves the Vite production files from the `public` directory.
+- [x] **Calls to third party endpoints** — The About page loads current Provo weather conditions from the Open-Meteo service.
+- [x] **Backend service endpoints** — Added endpoints for health checks, authentication, matches, player statistics, and the leaderboard.
+- [x] **Frontend calls service endpoints** — The React frontend uses the service for authentication, saving matches, loading match history, and displaying scores.
+- [x] **Supports registration, login, logout, and restricted endpoint** — Users can create accounts, log in, log out, and access protected match-saving functionality through a secure HTTP-only cookie.
+- [x] **Uses BCrypt to hash passwords** — Passwords are hashed with BCrypt before user records are stored in service memory.
 
 ## 🚀 DB deliverable
 
