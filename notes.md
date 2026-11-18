@@ -63,3 +63,17 @@ This file represents what I have learned about web programming.
 - `localStorage` can save user sessions, statistics, and match history in the browser.
 - Mock data can represent future database, WebSocket, and third-party service functionality.
 - React props allow components to share user information and event handlers.
+
+## MongoDB database notes
+
+- Install the MongoDB driver inside the service directory with `npm install mongodb`.
+- Store database credentials in `service/dbConfig.json` and exclude that file from Git.
+- Use `encodeURIComponent` when adding the username and password to the MongoDB connection string.
+- Create one MongoDB client and reuse its connection throughout the service.
+- Wait for MongoDB to connect before starting the Express server.
+- Store user accounts and BCrypt password hashes in the `user` collection.
+- Store completed matches in the `match` collection.
+- Use a unique index on user emails to prevent duplicate accounts.
+- Use indexes for authentication tokens, match dates, and player emails.
+- Test persistence by saving data, restarting the service, and confirming that the data remains available.
+- A database-backed health endpoint can verify that MongoDB is connected.
