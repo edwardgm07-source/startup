@@ -17,7 +17,7 @@ if [[ -z "$key" || -z "$hostname" || -z "$service" ]]; then
     exit 1
 fi
 
-printf "\n----> Deploying $service to $hostname with $key\n"
+printf "\n----> Deploying %s to %s with %s\n" "$service" "$hostname" "$key"
 
 # Build the frontend and service distribution.
 printf "\n----> Building the distribution package\n"
@@ -32,13 +32,15 @@ mkdir -p build/public
 
 cp -rf dist/* build/public/
 cp service/index.js build/
+cp service/database.js build/
+cp service/dbConfig.json build/
 cp service/package.json build/
 cp service/package-lock.json build/
 
 # Clear the previous production deployment.
 printf "\n----> Clearing the previous deployment\n"
 
-ssh -i "$key" ubuntu@$hostname << ENDSSH
+ssh -i "$key" "ubuntu@$hostname" << ENDSSH
 set -e
 
 rm -rf "services/${service}"
@@ -48,18 +50,20 @@ ENDSSH
 # Copy the frontend and backend to AWS.
 printf "\n----> Copying the distribution package\n"
 
-scp -r -i "$key" build/* ubuntu@$hostname:services/$service
+scp -r -i "$key" build/* "ubuntu@$hostname:services/$service"
 
 # Install production dependencies and restart the service.
 printf "\n----> Starting the production service\n"
 
-ssh -i "$key" ubuntu@$hostname << ENDSSH
+ssh -i "$key" "ubuntu@$hostname" << ENDSSH
 set -e
 
 export NVM_DIR="\$HOME/.nvm"
 source "\$NVM_DIR/nvm.sh"
 
 cd "services/${service}"
+
+chmod 600 dbConfig.json
 npm install --omit=dev
 
 if pm2 describe "${service}" > /dev/null 2>&1; then
