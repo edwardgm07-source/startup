@@ -21,8 +21,8 @@ apiRouter.get('/health', (_req, res) => {
 
 // Create a new account.
 apiRouter.post('/auth/create', async (req, res) => {
-  const email = normalizeEmail(req.body.email);
-  const password = req.body.password ?? '';
+  const email = normalizeEmail(req.body?.email);
+  const password = req.body?.password ?? '';
 
   if (!email.includes('@') || password.length < 4) {
     res.status(400).send({
@@ -40,16 +40,27 @@ apiRouter.post('/auth/create', async (req, res) => {
     return;
   }
 
-  const user = await createUser(email, password);
+  try {
+    const user = await createUser(email, password);
 
-  setAuthCookie(res, user.token);
-  res.status(201).send(publicUser(user));
+    setAuthCookie(res, user.token);
+    res.status(201).send(publicUser(user));
+  } catch (error) {
+    if (error.code === 11000) {
+      res.status(409).send({
+        msg: 'An account with this email already exists.',
+      });
+      return;
+    }
+
+    throw error;
+  }
 });
 
 // Log in to an existing account.
 apiRouter.post('/auth/login', async (req, res) => {
-  const email = normalizeEmail(req.body.email);
-  const password = req.body.password ?? '';
+  const email = normalizeEmail(req.body?.email);
+  const password = req.body?.password ?? '';
   const user = await database.getUserByEmail(email);
 
   if (user && (await bcrypt.compare(password, user.password))) {
@@ -101,8 +112,8 @@ apiRouter.get('/auth/me', verifyAuth, (req, res) => {
 
 // Save a completed match for the authenticated player.
 apiRouter.post('/matches', verifyAuth, async (req, res) => {
-  const playerScore = Number(req.body.playerScore);
-  const opponentScore = Number(req.body.opponentScore);
+  const playerScore = Number(req.body?.playerScore);
+  const opponentScore = Number(req.body?.opponentScore);
 
   if (
     !Number.isInteger(playerScore) ||
