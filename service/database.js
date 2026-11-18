@@ -13,7 +13,7 @@ const matchCollection = database.collection('match');
 
 async function connect() {
   await client.connect();
-  await database.command({ ping: 1 });
+  await ping();
 
   await userCollection.createIndex({ email: 1 }, { unique: true });
   await userCollection.createIndex({ token: 1 }, { sparse: true });
@@ -21,6 +21,10 @@ async function connect() {
   await matchCollection.createIndex({ email: 1 });
 
   console.log('Connected to MongoDB');
+}
+
+async function ping() {
+  await database.command({ ping: 1 });
 }
 
 async function getUserByEmail(email) {
@@ -105,6 +109,7 @@ async function getLeaderboard() {
 
 module.exports = {
   connect,
+  ping,
   getUserByEmail,
   getUserByToken,
   addUser,

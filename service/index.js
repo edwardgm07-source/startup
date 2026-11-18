@@ -15,8 +15,13 @@ app.use(express.static('public'));
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
 
-apiRouter.get('/health', (_req, res) => {
-  res.send({ status: 'ok' });
+apiRouter.get('/health', async (_req, res) => {
+  await database.ping();
+
+  res.send({
+    status: 'ok',
+    database: 'connected',
+  });
 });
 
 // Create a new account.
