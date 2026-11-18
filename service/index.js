@@ -2,14 +2,11 @@ const { randomUUID } = require('crypto');
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const database = require('./database');
 
 const app = express();
 const authCookieName = 'token';
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
-
-// Temporary memory storage. A database will replace this later.
-const users = [];
-const matches = [];
 
 app.use(express.json());
 app.use(cookieParser());
@@ -34,7 +31,9 @@ apiRouter.post('/auth/create', async (req, res) => {
     return;
   }
 
-  if (findUser('email', email)) {
+  const existingUser = await database.getUserByEmail(email);
+
+  if (existingUser) {
     res.status(409).send({
       msg: 'An account with this email already exists.',
     });
@@ -51,11 +50,15 @@ apiRouter.post('/auth/create', async (req, res) => {
 apiRouter.post('/auth/login', async (req, res) => {
   const email = normalizeEmail(req.body.email);
   const password = req.body.password ?? '';
-  const user = findUser('email', email);
+  const user = await database.getUserByEmail(email);
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    user.token = randomUUID();
-    setAuthCookie(res, user.token);
+    const token = randomUUID();
+
+    await database.updateUserToken(email, token);
+    user.token = token;
+
+    setAuthCookie(res, token);
     res.send(publicUser(user));
     return;
   }
@@ -64,28 +67,31 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 // Log out of the current account.
-apiRouter.delete('/auth/logout', (req, res) => {
-  const user = findUser('token', req.cookies[authCookieName]);
+apiRouter.delete('/auth/logout', async (req, res) => {
+  const token = req.cookies[authCookieName];
 
-  if (user) {
-    delete user.token;
-  }
+  await database.clearUserToken(token);
 
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
 // Verify authentication before allowing protected requests.
-function verifyAuth(req, res, next) {
-  const user = findUser('token', req.cookies[authCookieName]);
+async function verifyAuth(req, res, next) {
+  try {
+    const token = req.cookies[authCookieName];
+    const user = await database.getUserByToken(token);
 
-  if (!user) {
-    res.status(401).send({ msg: 'Unauthorized' });
-    return;
+    if (!user) {
+      res.status(401).send({ msg: 'Unauthorized' });
+      return;
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
   }
-
-  req.user = user;
-  next();
 }
 
 // Return the currently authenticated player.
@@ -94,7 +100,7 @@ apiRouter.get('/auth/me', verifyAuth, (req, res) => {
 });
 
 // Save a completed match for the authenticated player.
-apiRouter.post('/matches', verifyAuth, (req, res) => {
+apiRouter.post('/matches', verifyAuth, async (req, res) => {
   const playerScore = Number(req.body.playerScore);
   const opponentScore = Number(req.body.opponentScore);
 
@@ -130,38 +136,21 @@ apiRouter.post('/matches', verifyAuth, (req, res) => {
     playedAt: new Date().toISOString(),
   };
 
-  matches.unshift(match);
+  await database.addMatch(match);
+
   res.status(201).send(publicMatch(match));
 });
 
 // Return the 20 most recent matches.
-apiRouter.get('/matches', (_req, res) => {
-  res.send(matches.slice(0, 20).map(publicMatch));
+apiRouter.get('/matches', async (_req, res) => {
+  const matches = await database.getRecentMatches();
+
+  res.send(matches.map(publicMatch));
 });
 
 // Build and return the leaderboard.
-apiRouter.get('/scores', (_req, res) => {
-  const leaderboard = users
-    .map((user) => {
-      const userMatches = matches.filter(
-        (match) => match.email === user.email,
-      );
-
-      return {
-        name: user.name,
-        games: userMatches.length,
-        wins: userMatches.filter((match) => match.result === 'win').length,
-        losses: userMatches.filter((match) => match.result === 'loss').length,
-        draws: userMatches.filter((match) => match.result === 'draw').length,
-      };
-    })
-    .filter((player) => player.games > 0)
-    .sort(
-      (playerA, playerB) =>
-        playerB.wins - playerA.wins ||
-        playerA.losses - playerB.losses ||
-        playerB.games - playerA.games,
-    );
+apiRouter.get('/scores', async (_req, res) => {
+  const leaderboard = await database.getLeaderboard();
 
   res.send(leaderboard);
 });
@@ -194,16 +183,9 @@ async function createUser(email, password) {
     token: randomUUID(),
   };
 
-  users.push(user);
+  await database.addUser(user);
+
   return user;
-}
-
-function findUser(field, value) {
-  if (!value) {
-    return null;
-  }
-
-  return users.find((user) => user[field] === value) ?? null;
 }
 
 function publicUser(user) {
