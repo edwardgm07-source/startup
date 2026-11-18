@@ -215,6 +215,15 @@ function setAuthCookie(res, authToken) {
   });
 }
 
-app.listen(port, () => {
-  console.log(`Penalty Duel service listening on port ${port}`);
+async function startServer() {
+  await database.connect();
+
+  app.listen(port, () => {
+    console.log(`Penalty Duel service listening on port ${port}`);
+  });
+}
+
+startServer().catch((error) => {
+  console.error('Service startup failed:', error.message);
+  process.exit(1);
 });

@@ -23,10 +23,6 @@ async function connect() {
   console.log('Connected to MongoDB');
 }
 
-connect().catch((error) => {
-  console.error('MongoDB connection failed:', error.message);
-});
-
 async function getUserByEmail(email) {
   return userCollection.findOne({ email });
 }
@@ -45,7 +41,10 @@ async function addUser(user) {
 }
 
 async function updateUserToken(email, token) {
-  await userCollection.updateOne({ email }, { $set: { token } });
+  await userCollection.updateOne(
+    { email },
+    { $set: { token } },
+  );
 }
 
 async function clearUserToken(token) {
@@ -105,6 +104,7 @@ async function getLeaderboard() {
 }
 
 module.exports = {
+  connect,
   getUserByEmail,
   getUserByToken,
   addUser,
