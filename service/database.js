@@ -14,7 +14,12 @@ const matchCollection = database.collection('match');
 async function connect() {
   await client.connect();
   await database.command({ ping: 1 });
+
   await userCollection.createIndex({ email: 1 }, { unique: true });
+  await userCollection.createIndex({ token: 1 }, { sparse: true });
+  await matchCollection.createIndex({ playedAt: -1 });
+  await matchCollection.createIndex({ email: 1 });
+
   console.log('Connected to MongoDB');
 }
 
@@ -45,7 +50,10 @@ async function updateUserToken(email, token) {
 
 async function clearUserToken(token) {
   if (token) {
-    await userCollection.updateOne({ token }, { $unset: { token: '' } });
+    await userCollection.updateOne(
+      { token },
+      { $unset: { token: '' } },
+    );
   }
 }
 
