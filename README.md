@@ -6,12 +6,6 @@ Penalty Duel is an online soccer penalty shootout game. Players choose to shoot 
 
 This project is being developed for BYU CS 260.
 
-> [!NOTE]
-> This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
-
-> [!NOTE]
-> If you are not familiar with Markdown then you should review the [documentation](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) before continuing.
-
 ### Elevator pitch
 
 Penalty Duel turns the excitement of a soccer shootout into a quick online competition. Players choose where to shoot, challenge the goalkeeper or another player, and climb the live leaderboard as results update instantly. Whether you have a minute between classes or want to compete with friends, every kick creates a simple, fast, and replayable battle for bragging rights.
@@ -50,17 +44,14 @@ I am going to use the required technologies in the following ways.
 
 - **HTML** - Provides the structure for the login, game, results, leaderboard, trivia, and navigation views.
 - **CSS** - Creates a responsive soccer-themed layout for desktop and mobile screens and provides animations for shots, goals, and saves.
-- **React** - Provides reusable components for login, gameplay, scoring, the leaderboard, and trivia. React Router will move users between views, and React state will update the score and game status after each shot.
-- **Service** - A Node.js and Express backend will provide endpoints to register, log in, log out, start matches, submit shots, save match results, and retrieve player statistics and leaderboard scores. After each match, the service will request a sports trivia question from the [Open Trivia DB API](https://opentdb.com/api_config.php).
-- **Database/Login** - MongoDB will securely store user accounts, hashed passwords, match results, total wins and losses, scores, and winning streaks.
-- **WebSocket** - The server will send real-time opponent actions, completed-match notifications, activity feed messages, and leaderboard updates to all connected players.
+- **React** - Provides reusable components for login, gameplay, scoring, the leaderboard, and trivia. React Router moves users between views, and React state updates the score and game status after each shot.
+- **Service** - A Node.js and Express backend provides endpoints to register, log in, log out, save match results, and retrieve player statistics and leaderboard scores.
+- **Database/Login** - MongoDB securely stores user accounts, hashed passwords, authentication tokens, and completed match results.
+- **WebSocket** - The server will send real-time opponent actions, completed-match notifications, activity feed messages, and leaderboard updates to connected players.
 
 ## 🚀 Specification Deliverable
 
-> [!NOTE]
-> Fill in this sections as the submission artifact for this deliverable. You can refer to this [example](https://github.com/webprogramming260/startup-example/blob/main/README.md) for inspiration.
-
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
 - [x] **Prerequisites** - I created the startup repository and used separate Git commits to document each completed part of the specification.
 - [x] **Proper use of Markdown** - I organized the README with headings, bullet lists, links, an embedded image, and a Mermaid navigation diagram.
@@ -75,11 +66,11 @@ For this deliverable I did the following:
 
 - [x] **Rented EC2 server** - I created a `t3.nano` EC2 instance using the Web Programming 260 Server v8 AMI and verified that it is accessible.
 - [x] **Leased domain name** - I registered `edwardgm260.click` through Amazon Route 53 and configured DNS records that point to my EC2 server.
-- [x] **Server accessible** from my domain: [https://startup.edwardgm260.click](https://startup.edwardgm260.click) - I configured Caddy and verified that the startup placeholder is available through HTTPS.
+- [x] **Server accessible** - I configured Caddy and verified that Penalty Duel is available through HTTPS at [startup.edwardgm260.click](https://startup.edwardgm260.click).
 
 ## 🚀 HTML deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
 - [x] **Prerequisites** - I deployed Simon, included my GitHub link, and made Git commits throughout the work.
 - [x] **HTML pages** - I created `index.html`, `play.html`, `scores.html`, and `about.html`.
@@ -94,66 +85,75 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ## 🚀 CSS deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for the things I completed.
+For this deliverable I did the following:
 
 - [x] **Prerequisites** - I deployed Simon, included my GitHub repository link, and made Git commits throughout the work.
-- [x] **Visually appealing colors and layout. No overflowing elements.** - I created a soccer-themed design using green, yellow, navy, and white. I also used cards, spacing, shadows, and responsive tables to prevent elements from overflowing.
+- [x] **Visually appealing colors and layout** - I created a soccer-themed design using green, yellow, navy, and white. I also used cards, spacing, shadows, and responsive tables to prevent elements from overflowing.
 - [x] **Use of a CSS framework** - I used Bootstrap for buttons, tables, form controls, responsive containers, and other components.
 - [x] **All visual elements styled using CSS** - I styled the header, navigation, footer, forms, buttons, tables, game panels, leaderboard, statistics, and About page.
-- [x] **Responsive to window resizing using flexbox and/or grid display** - I used Flexbox, CSS Grid, and media queries so the pages adjust to desktop, tablet, and mobile screen sizes.
+- [x] **Responsive to window resizing** - I used Flexbox, CSS Grid, and media queries so the pages adjust to desktop, tablet, and mobile screen sizes.
 - [x] **Use of an imported font** - I imported and used the Montserrat font from Google Fonts.
-- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I used element, class, ID, and pseudo-class selectors such as `:hover` and `:focus-visible`.
+- [x] **Different types of selectors** - I used element, class, ID, and pseudo-class selectors such as `:hover` and `:focus-visible`.
 
-## 🚀 React part1: Routing deliverable
+## 🚀 React part 1: Routing deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
 - [x] **Prerequisites** - I deployed Simon, included my GitHub repository link, and made more than ten meaningful Git commits throughout the React conversion.
-
 - [x] **Bundled using Vite** - I configured Vite to build and run the application, added development and production scripts, and verified that the production build completes successfully.
-
-- [x] **Components** - I converted the Home, Play, Scores, and About pages into reusable React components. The Home component contains the login form, the Play component contains the penalty game, the Scores component displays the leaderboard, and the About component explains the application.
-
+- [x] **Components** - I converted the Home, Play, Scores, and About pages into reusable React components.
 - [x] **Router** - I used React Router with `BrowserRouter`, `Routes`, `Route`, and `NavLink` to navigate between the Home, Play, Scores, and About views without reloading the page.
 
 ## 🚀 React part 2: Reactivity deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for the items I completed.
+For this deliverable I did the following:
 
 - [x] **Prerequisites** - I deployed Simon, included the GitHub repository link, and made numerous meaningful Git commits while developing the React application.
-
 - [x] **All functionality implemented or mocked out** - I implemented mocked account creation, login, logout, and browser session persistence using local storage. I created an interactive five-round penalty match with a simulated opponent, live match updates, match results, saved player statistics, recent match history, a simulated leaderboard, and simulated third-party stadium weather data.
-
 - [x] **Hooks** - I used React hooks throughout the application. `useState` manages authentication, gameplay, scores, messages, loading indicators, weather, and leaderboard data. `useEffect` simulates opponent events, database loading, and third-party weather requests. `useRef` prevents completed matches from being saved more than once.
 
 ## 🚀 Service deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
-- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits) — Penalty Duel is deployed at [startup.edwardgm260.click](https://startup.edwardgm260.click).
-- [x] **Node.js/Express HTTP service** — Created an Express service that runs on port 4000 and is managed in production with PM2.
-- [x] **Static middleware for frontend** — Express serves the Vite production files from the `public` directory.
-- [x] **Calls to third party endpoints** — The About page loads current Provo weather conditions from the Open-Meteo service.
-- [x] **Backend service endpoints** — Added endpoints for health checks, authentication, matches, player statistics, and the leaderboard.
-- [x] **Frontend calls service endpoints** — The React frontend uses the service for authentication, saving matches, loading match history, and displaying scores.
-- [x] **Supports registration, login, logout, and restricted endpoint** — Users can create accounts, log in, log out, and access protected match-saving functionality through a secure HTTP-only cookie.
-- [x] **Uses BCrypt to hash passwords** — Passwords are hashed with BCrypt before user records are stored in service memory.
+- [x] **Prerequisites** - I deployed Simon, included my GitHub repository link, and made meaningful Git commits. Penalty Duel is deployed at [startup.edwardgm260.click](https://startup.edwardgm260.click).
+- [x] **Node.js/Express HTTP service** - I created an Express service that runs on port 4000 and is managed in production with PM2.
+- [x] **Static middleware for frontend** - Express serves the Vite production files from the `public` directory.
+- [x] **Calls to third-party endpoints** - The About page loads current Provo weather conditions from the Open-Meteo service.
+- [x] **Backend service endpoints** - I added endpoints for health checks, authentication, matches, player statistics, and the leaderboard.
+- [x] **Frontend calls service endpoints** - The React frontend uses the service for authentication, saving matches, loading match history, and displaying scores.
+- [x] **Registration, login, logout, and restricted endpoint** - Users can create accounts, log in, log out, and access protected match-saving functionality through an HTTP-only cookie.
+- [x] **Uses BCrypt to hash passwords** - Passwords are hashed with BCrypt before user records are stored in MongoDB.
 
 ## 🚀 DB deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
+- [x] **Prerequisites** - I deployed Simon, included my GitHub repository link, and made at least ten meaningful Git commits while completing the database integration.
+- [x] **Stores data in MongoDB** - Completed penalty matches are stored in MongoDB Atlas. The Scores page loads recent matches and builds the leaderboard from persistent database records. I verified persistence by restarting the service and confirming that previously saved results remained available.
+- [x] **Stores credentials in MongoDB** - User accounts, BCrypt password hashes, and authentication tokens are stored in MongoDB. Authentication uses an HTTP-only cookie, and database credentials are kept in the Git-ignored `service/dbConfig.json` file.
+
+### Database implementation
+
+Penalty Duel uses MongoDB Atlas with separate `user` and `match` collections. Unique and lookup indexes are created for email addresses, authentication tokens, match dates, and player emails.
+
+The service provides the following database-backed endpoints:
+
+- `GET /api/health` verifies both the service and MongoDB connection.
+- `POST /api/auth/create` creates and stores a new user.
+- `POST /api/auth/login` authenticates an existing user.
+- `DELETE /api/auth/logout` removes the current authentication token.
+- `POST /api/matches` stores a completed match for the authenticated player.
+- `GET /api/matches` returns the 20 most recent matches.
+- `GET /api/scores` builds and returns the leaderboard.
 
 ## 🚀 WebSocket deliverable
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
+For this deliverable I did the following:
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [ ] **Prerequisites** - I have not completed this deliverable yet.
+- [ ] **Backend listens for WebSocket connection** - I have not completed this part of the deliverable.
+- [ ] **Frontend makes WebSocket connection** - I have not completed this part of the deliverable.
+- [ ] **Data sent over WebSocket connection** - I have not completed this part of the deliverable.
+- [ ] **WebSocket data displayed** - I have not completed this part of the deliverable.
+- [ ] **Application is fully functional** - I have not completed this part of the deliverable.
